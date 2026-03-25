@@ -47,6 +47,10 @@ export default class Character {
     return [...Object.values(this.ascension), ...Object.values(this.forte)]
   }
 
+  hasMaterial(material: Material): boolean {
+    return this.getMaterials().some((m) => m.material === material)
+  }
+
   private mapByType(materials: Material[]): Map<MAT_TYPE, Material> {
     const map: Map<MAT_TYPE, Material> = new Map()
 
