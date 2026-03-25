@@ -364,11 +364,7 @@ const unownedMaterialCalculator = new MaterialCalculator()
 unownedMaterialCalculator.addFromCharacters(characterRegistry.unowned)
 
 // Get amount of weekly materials needed for all unowned characters
-console.log(
-  unownedMaterialCalculator
-    .calculate(4)
-    .filter((m) => m.material.type === MAT_TYPE.WEEKLY),
-)
+console.log(unownedMaterialCalculator.calculateByType(MAT_TYPE.WEEKLY))
 
 // Pretty print characters not owned
 characterRegistry.unowned
