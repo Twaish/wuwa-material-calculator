@@ -91,7 +91,7 @@ export default class MaterialCalculator {
     return result
   }
 
-  reset() {
+  clear() {
     this.totals.clear()
   }
 }
