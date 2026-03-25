@@ -27,6 +27,13 @@ export default class MaterialCalculator {
     }
   }
 
+  addFromCharacters(chars: Iterable<{ getMaterials(): BoundMaterial[] }>) {
+    for (const c of chars) {
+      this.addMaterials(c.getMaterials())
+    }
+    return this
+  }
+
   calculate(targetTier: number): {
     amount: number
     material: Material
