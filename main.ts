@@ -361,9 +361,7 @@ ownedCharacters.forEach((c) => c.addTag('owned'))
 const unownedMaterialCalculator = new MaterialCalculator()
 
 // Add materials for characters not owned to calculator
-characterRegistry.unowned.forEach((c) =>
-  unownedMaterialCalculator.addMaterials(c.getMaterials()),
-)
+unownedMaterialCalculator.addFromCharacters(characterRegistry.unowned)
 
 // Get amount of weekly materials needed for all unowned characters
 console.log(
@@ -378,10 +376,8 @@ characterRegistry.unowned
   .forEach((c) => console.log(c))
 
 // Get unowned characters that has Netherworld's Stare as a material
-const charactersThatOnlyHaveNetherworldsStare = (c: Character) =>
-  c.getMaterials().some((m) => m.material.name === netherworlds_stare.name)
+const usesNetherworldsStare = (c: Character) =>
+  c.hasMaterial(netherworlds_stare)
 console.log(
-  characterRegistry.unowned
-    .filter(charactersThatOnlyHaveNetherworldsStare)
-    .map((c) => c.name),
+  characterRegistry.unowned.filter(usesNetherworldsStare).map((c) => c.name),
 )
