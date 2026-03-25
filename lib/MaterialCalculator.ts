@@ -1,4 +1,6 @@
-import { Material, BoundMaterial } from './Material'
+import { Material, BoundMaterial, MAT_TYPE } from './Material'
+
+type TieredMaterialType = MAT_TYPE.ENEMY | MAT_TYPE.FORGERY
 
 export default class MaterialCalculator {
   private totals = new Map<
@@ -32,6 +34,22 @@ export default class MaterialCalculator {
       this.addMaterials(c.getMaterials())
     }
     return this
+  }
+
+  calculateByType(
+    type: TieredMaterialType,
+    tier: number,
+  ): ReturnType<typeof this.calculate>
+  calculateByType(
+    type: Exclude<MAT_TYPE, TieredMaterialType>,
+  ): ReturnType<typeof this.calculate>
+  calculateByType(type: MAT_TYPE, tier?: number) {
+    const data =
+      type === MAT_TYPE.ENEMY || type === MAT_TYPE.FORGERY
+        ? this.calculate(tier ?? 4)
+        : this.calculate(4)
+
+    return data.filter((m) => m.material.type === type)
   }
 
   calculate(targetTier: number): {
