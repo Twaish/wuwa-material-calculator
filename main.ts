@@ -5,7 +5,9 @@ import CharacterRegistry from './lib/CharacterRegistry'
 import MaterialCalculator from './lib/MaterialCalculator'
 import { registerNamingSchemes } from './helper/register-naming-schemes'
 import { prettyPrintWithRegistry } from './helper/pretty-print-with-registry'
-import {
+import * as materials from './resources/materials'
+
+const {
   // Enemy type materials
   howler_core,
   whisperin_core,
@@ -95,14 +97,12 @@ import {
 
   // Credit type materials
   shell_credit,
-} from './resources/materials'
+} = materials
 
 const namingRegistry = new NamingRegistry()
 registerNamingSchemes(namingRegistry)
 
 const characterRegistry = new CharacterRegistry()
-
-const materialCalculator = new MaterialCalculator()
 
 const schema = new MaterialSchema(
   {
@@ -358,57 +358,30 @@ const ownedCharacters = [
 ]
 ownedCharacters.forEach((c) => c.addTag('owned'))
 
-characterRegistry
-  .query()
-  .excludeTags(['owned'])
-  .toArray()
-  // .forEach((c) => console.log(c.name))
-  .map((c) => materialCalculator.addMaterials(c.getMaterials()))
+const unownedMaterialCalculator = new MaterialCalculator()
 
-characterRegistry
-  .query()
-  .excludeTags(['owned'])
-  .toArray()
-  .map((c) => prettyPrintWithRegistry(c, namingRegistry))
-  .forEach((c) => console.log(c))
+// Add materials for characters not owned to calculator
+characterRegistry.unowned.forEach((c) =>
+  unownedMaterialCalculator.addMaterials(c.getMaterials()),
+)
 
+// Get amount of weekly materials needed for all unowned characters
 console.log(
-  materialCalculator
+  unownedMaterialCalculator
     .calculate(4)
     .filter((m) => m.material.type === MAT_TYPE.WEEKLY),
 )
 
-// console.log(
-//   characterRegistry
-//     .findWithout([
-//       unending_destruction,
-//       dreamless_feather,
-//       sentinels_dagger,
-//       netherworlds_stare,
-//       when_irises_bloom,
-//       curse_of_the_abyss,
-//       gold_in_memory,
-//     ])
-//     .map((c) => c.name),
-// )
+// Pretty print characters not owned
+characterRegistry.unowned
+  .map((c) => prettyPrintWithRegistry(c, namingRegistry))
+  .forEach((c) => console.log(c))
 
-// characterRegistry
-//   .findAny([
-//     monument_bell,
-//     // unending_destruction,
-//     // dreamless_feather,
-//     // sentinels_dagger,
-//     // netherworlds_stare,
-//     // when_irises_bloom,
-//     // curse_of_the_abyss,
-//     // gold_in_memory,
-//   ])
-//   .forEach((c) => {
-//     console.log(prettyPrintWithRegistry(c, namingRegistry))
-//     materialCalculator.addMaterials(c.getMaterials())
-//   })
-// console.log(
-//   materialCalculator
-//     .calculate(4)
-//     .filter((m) => m.material.type === MAT_TYPE.WEEKLY),
-// )
+// Get unowned characters that has Netherworld's Stare as a material
+const charactersThatOnlyHaveNetherworldsStare = (c: Character) =>
+  c.getMaterials().some((m) => m.material.name === netherworlds_stare.name)
+console.log(
+  characterRegistry.unowned
+    .filter(charactersThatOnlyHaveNetherworldsStare)
+    .map((c) => c.name),
+)
