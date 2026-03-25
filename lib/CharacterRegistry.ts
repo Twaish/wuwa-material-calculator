@@ -2,7 +2,7 @@ import Character from './Character'
 import { Material } from './Material'
 import { Tag } from '../resources/tags'
 
-class CharacterQuery {
+class CharacterQuery implements Iterable<Character> {
   private steps: ((chars: Set<Character>) => Set<Character>)[] = []
 
   constructor(
@@ -16,6 +16,41 @@ class CharacterQuery {
     return q
   }
 
+  private execute(): Set<Character> {
+    const initial = new Set(this.source)
+    return this.steps.reduce((acc, fn) => fn(acc), initial)
+  }
+
+  [Symbol.iterator](): Iterator<Character> {
+    return this.execute().values()
+  }
+
+  toArray(): Character[] {
+    const initial = new Set(this.source)
+    const final = this.steps.reduce((acc, fn) => fn(acc), initial)
+    return [...final]
+  }
+
+  forEach(fn: (c: Character) => void) {
+    for (const c of this) fn(c)
+  }
+
+  map<T>(fn: (c: Character) => T): T[] {
+    const result: T[] = []
+    for (const c of this) result.push(fn(c))
+    return result
+  }
+
+  filter(fn: (c: Character) => boolean): CharacterQuery {
+    return this.chain((chars) => {
+      const result = new Set<Character>()
+      for (const c of chars) {
+        if (fn(c)) result.add(c)
+      }
+      return result
+    })
+  }
+
   /**
    * Find characters that contain all listed materials
    *
@@ -26,21 +61,6 @@ class CharacterQuery {
     if (materials.length === 0) return this
 
     return this.chain((chars) => {
-      // const sets = materials.map(
-      //   (mat) => this.registry.byMaterial.get(mat) ?? new Set(),
-      // ) as Set<Character>[]
-
-      // const [first, ...rest] = sets
-      // const result = new Set(first)
-
-      // for (const set of rest) {
-      //   for (const char of result) {
-      //     if (!set.has(char)) result.delete(char)
-      //   }
-      // }
-
-      // const pool = new Set(chars)
-      // return [...result].filter((c) => pool.has(c))
       const sets = materials
         .map((mat) => this.registry.byMaterial.get(mat))
         .filter((s) => s !== undefined)
@@ -70,22 +90,6 @@ class CharacterQuery {
     if (materials.length === 0) return this
 
     return this.chain((chars) => {
-      // const pool = new Set(chars)
-      // const result = new Set<Character>()
-
-      // for (const mat of materials) {
-      //   const fromIndex = this.registry.byMaterial.get(mat)
-      //   if (!fromIndex) continue
-
-      //   for (const c of fromIndex) {
-      //     if (pool.has(c)) {
-      //       result.add(c)
-      //     }
-      //   }
-      // }
-
-      // return [...result]
-
       const result = new Set<Character>()
 
       for (const mat of materials) {
@@ -114,21 +118,6 @@ class CharacterQuery {
     if (materials.length === 0) return this
 
     return this.chain((chars) => {
-      // const pool = new Set(chars)
-      // const excluded = new Set<Character>()
-
-      // for (const mat of materials) {
-      //   const fromIndex = this.registry.byMaterial.get(mat)
-      //   if (!fromIndex) continue
-
-      //   for (const c of fromIndex) {
-      //     if (pool.has(c)) {
-      //       excluded.add(c)
-      //     }
-      //   }
-      // }
-
-      // return chars.filter((c) => !excluded.has(c))
       const result = new Set(chars)
 
       for (const mat of materials) {
@@ -153,7 +142,6 @@ class CharacterQuery {
    * @returns Characters with the tag
    */
   hasTag(tag: Tag): CharacterQuery {
-    // return this.chain((chars) => chars.filter((c) => c.hasTag(tag)))
     return this.chain((chars) => {
       const result = new Set<Character>()
       for (const c of chars) {
@@ -170,9 +158,6 @@ class CharacterQuery {
    * @returns Characters matching all tags
    */
   hasTags(tags: Tag[]): CharacterQuery {
-    // return this.chain((chars) =>
-    //   chars.filter((c) => tags.every((tag) => c.hasTag(tag))),
-    // )
     if (tags.length === 0) return this
     if (tags.length === 1) return this.hasTag(tags[0])
 
@@ -202,15 +187,9 @@ class CharacterQuery {
       return result
     })
   }
-
-  toArray(): Character[] {
-    const initial = new Set(this.source)
-    const final = this.steps.reduce((acc, fn) => fn(acc), initial)
-    return [...final]
-  }
 }
 
-export default class CharacterRegistry {
+export default class CharacterRegistry implements Iterable<Character> {
   private characters: Character[] = []
 
   readonly byMaterial: Map<Material, Set<Character>> = new Map()
@@ -239,12 +218,41 @@ export default class CharacterRegistry {
     }
   }
 
-  /**
-   * Starts a registry query
-   *
-   * @returns Query instance
-   */
-  query(): CharacterQuery {
+  get unowned() {
+    return this.excludeTags(['owned'])
+  }
+  get owned() {
+    return this.hasTag('owned')
+  }
+
+  private get q() {
     return new CharacterQuery(this.characters, this)
+  }
+
+  [Symbol.iterator](): Iterator<Character> {
+    return this.q[Symbol.iterator]()
+  }
+
+  findByMaterials = (materials: Material[]) => this.q.findByMaterials(materials)
+  findAny = (materials: Material[]) => this.q.findAny(materials)
+  findWithout = (materials: Material[]) => this.q.findWithout(materials)
+  hasTag = (tag: Tag) => this.q.hasTag(tag)
+  hasTags = (tags: Tag[]) => this.q.hasTags(tags)
+  excludeTags = (tags: Tag[]) => this.q.excludeTags(tags)
+  map = <T>(fn: (c: Character) => T): T[] => this.q.map(fn)
+  forEach = (fn: (c: Character) => void) => this.q.forEach(fn)
+  filter = (fn: (c: Character) => boolean): CharacterQuery => this.q.filter(fn)
+
+  some(fn: (c: Character) => boolean): boolean {
+    for (const c of this) if (fn(c)) return true
+    return false
+  }
+  every(fn: (c: Character) => boolean): boolean {
+    for (const c of this) if (!fn(c)) return false
+    return true
+  }
+  find(fn: (c: Character) => boolean): Character | undefined {
+    for (const c of this) if (fn(c)) return c
+    return undefined
   }
 }
