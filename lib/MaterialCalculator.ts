@@ -2,6 +2,12 @@ import { Material, BoundMaterial, MAT_TYPE } from './Material'
 
 type TieredMaterialType = MAT_TYPE.ENEMY | MAT_TYPE.FORGERY
 
+type MaterialAmount = {
+  amount: number
+  material: Material
+  tier?: number
+}
+
 export default class MaterialCalculator {
   private totals = new Map<
     Material,
@@ -52,16 +58,8 @@ export default class MaterialCalculator {
     return data.filter((m) => m.material.type === type)
   }
 
-  calculate(targetTier: number): {
-    amount: number
-    material: Material
-    tier?: number
-  }[] {
-    const result: {
-      amount: number
-      material: Material
-      tier?: number
-    }[] = []
+  calculate(targetTier: number): MaterialAmount[] {
+    const result: MaterialAmount[] = []
 
     for (const [material, value] of this.totals.entries()) {
       if (!Array.isArray(value)) {
