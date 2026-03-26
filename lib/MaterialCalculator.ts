@@ -42,26 +42,15 @@ export default class MaterialCalculator {
     return this
   }
 
-  calculateByType(
-    type: TieredMaterialType,
-    tier: number,
-  ): ReturnType<typeof this.calculate>
-  calculateByType(
-    type: Exclude<MAT_TYPE, TieredMaterialType>,
-  ): ReturnType<typeof this.calculate>
-  calculateByType(type: MAT_TYPE, tier?: number) {
-    const data =
-      type === MAT_TYPE.ENEMY || type === MAT_TYPE.FORGERY
-        ? this.calculate(tier ?? 4)
-        : this.calculate(4)
-
-    return data.filter((m) => m.material.type === type)
-  }
-
-  calculate(targetTier: number): MaterialAmount[] {
+  private process(
+    targetTier: number,
+    filter?: (material: Material) => boolean,
+  ): MaterialAmount[] {
     const result: MaterialAmount[] = []
 
     for (const [material, value] of this.totals.entries()) {
+      if (filter && !filter(material)) continue
+
       if (!Array.isArray(value)) {
         result.push({ material, amount: value })
         continue
@@ -69,6 +58,7 @@ export default class MaterialCalculator {
 
       const tiers = [...value] as [number, number, number, number]
 
+      // normalize upward
       for (let i = 0; i < targetTier - 1; i++) {
         const carry = Math.floor(tiers[i] / 3)
         tiers[i] %= 3
@@ -87,6 +77,25 @@ export default class MaterialCalculator {
     }
 
     return result
+  }
+
+  calculateByType(
+    type: TieredMaterialType,
+    tier: number,
+  ): ReturnType<typeof this.calculate>
+  calculateByType(
+    type: Exclude<MAT_TYPE, TieredMaterialType>,
+  ): ReturnType<typeof this.calculate>
+  calculateByType(type: MAT_TYPE, tier?: number) {
+    const isTiered = type === MAT_TYPE.ENEMY || type === MAT_TYPE.FORGERY
+
+    const targetTier = isTiered ? (tier ?? 4) : 4
+
+    return this.process(targetTier, (m) => m.type === type)
+  }
+
+  calculate(targetTier: number): MaterialAmount[] {
+    return this.process(targetTier)
   }
 
   clear() {
