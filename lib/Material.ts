@@ -15,7 +15,7 @@ export class Material {
   ) {}
 }
 
-type TierMap = {
+export type TierMap = {
   [MAT_TYPE.ENEMY]: [number, number, number, number]
   [MAT_TYPE.FORGERY]: [number, number, number, number]
   [MAT_TYPE.WEEKLY]: number
