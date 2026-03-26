@@ -2,7 +2,7 @@ import { MAT_TYPE, Material, MaterialSchema } from './lib/Material'
 import Character from './lib/Character'
 import NamingRegistry from './lib/NamingRegistry'
 import CharacterRegistry from './lib/CharacterRegistry'
-import MaterialCalculator from './lib/MaterialCalculator'
+import MaterialCalculator, { MaterialAmount } from './lib/MaterialCalculator'
 import { registerNamingSchemes } from './helper/register-naming-schemes'
 import { prettyPrintWithRegistry } from './helper/pretty-print-with-registry'
 import * as materials from './resources/materials'
@@ -358,22 +358,51 @@ const ownedCharacters = [
 ]
 ownedCharacters.forEach((c) => c.addTag('owned'))
 
-const unownedMaterialCalculator = new MaterialCalculator()
+// Helper functions
+const typeOrder: MAT_TYPE[] = [
+  MAT_TYPE.ENEMY,
+  MAT_TYPE.FORGERY,
+  MAT_TYPE.BOSS,
+  MAT_TYPE.WEEKLY,
+  MAT_TYPE.CREDIT,
+  MAT_TYPE.OVERWORLD,
+  MAT_TYPE.SPECIAL,
+]
+
+const sortMaterialsByType = (a: MaterialAmount, b: MaterialAmount) =>
+  typeOrder.indexOf(a.material.type) - typeOrder.indexOf(b.material.type)
+
+const materialAmountToString = (ma: MaterialAmount) =>
+  `[${ma.material.type}] ${namingRegistry.format(ma.material, ma.tier)}: ${ma.amount}`
+
+const usesNetherworldsStare = (c: Character) =>
+  c.hasMaterial(netherworlds_stare)
+
+const logMaterials = (materials: MaterialAmount[]) =>
+  materials.forEach((ma) => console.log(materialAmountToString(ma)))
+
+const logCharacters = (chars: Iterable<Character>) => {
+  for (const c of chars) console.log(prettyPrintWithRegistry(c, namingRegistry))
+}
+
+// Playground
 
 // Add materials for characters not owned to calculator
+const unownedMaterialCalculator = new MaterialCalculator()
 unownedMaterialCalculator.addFromCharacters(characterRegistry.unowned)
 
 // Get amount of weekly materials needed for all unowned characters
-console.log(unownedMaterialCalculator.calculateByType(MAT_TYPE.WEEKLY))
+logMaterials(unownedMaterialCalculator.calculateByType(MAT_TYPE.WEEKLY))
 
 // Pretty print characters not owned
-characterRegistry.unowned
-  .map((c) => prettyPrintWithRegistry(c, namingRegistry))
-  .forEach((c) => console.log(c))
+logCharacters(characterRegistry.unowned)
 
 // Get unowned characters that has Netherworld's Stare as a material
-const usesNetherworldsStare = (c: Character) =>
-  c.hasMaterial(netherworlds_stare)
-console.log(
-  characterRegistry.unowned.filter(usesNetherworldsStare).map((c) => c.name),
+logCharacters(characterRegistry.unowned.filter(usesNetherworldsStare))
+
+// Total amounts for ENEMY and WEEKLY materials for unowned characters
+logMaterials(
+  unownedMaterialCalculator
+    .calculateMany([MAT_TYPE.ENEMY, MAT_TYPE.WEEKLY], 4)
+    .sort(sortMaterialsByType),
 )
