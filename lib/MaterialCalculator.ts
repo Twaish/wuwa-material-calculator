@@ -1,6 +1,8 @@
-import { Material, BoundMaterial, MAT_TYPE } from './Material'
+import { Material, BoundMaterial, MAT_TYPE, TierMap } from './Material'
 
 type TieredMaterialType = MAT_TYPE.ENEMY | MAT_TYPE.FORGERY
+
+type TieredMaterialMap = TierMap[TieredMaterialType]
 
 export type MaterialAmount = {
   amount: number
@@ -9,13 +11,13 @@ export type MaterialAmount = {
 }
 
 export default class MaterialCalculator {
-  public totals = new Map<Material, number | [number, number, number, number]>()
+  public totals = new Map<Material, TierMap[MAT_TYPE]>()
 
   addMaterials(entries: BoundMaterial[]) {
     for (const { material, tiers } of entries) {
       if (Array.isArray(tiers)) {
         const current = this.totals.get(material) as
-          | [number, number, number, number]
+          | TieredMaterialMap
           | undefined
 
         if (!current) {
@@ -30,6 +32,15 @@ export default class MaterialCalculator {
         this.totals.set(material, current + tiers)
       }
     }
+  }
+  addMaterialMap(...input: [Material, TierMap[MAT_TYPE]][]) {
+    const entries: BoundMaterial[] = []
+
+    for (const [material, tiers] of input) {
+      entries.push({ material, tiers })
+    }
+
+    this.addMaterials(entries)
   }
 
   addFromCharacters(chars: Iterable<{ getMaterials(): BoundMaterial[] }>) {
@@ -53,7 +64,7 @@ export default class MaterialCalculator {
         continue
       }
 
-      const tiers = [...value] as [number, number, number, number]
+      const tiers = [...value] as TieredMaterialMap
 
       // normalize upward
       for (let i = 0; i < targetTier - 1; i++) {
