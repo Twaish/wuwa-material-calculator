@@ -84,6 +84,32 @@ export default class MaterialCalculator {
     return this
   }
 
+  toMaterialAmounts(): MaterialAmount[] {
+    const result: MaterialAmount[] = []
+
+    for (const [material, value] of this.totals.entries()) {
+      if (!Array.isArray(value)) {
+        if (value !== 0) {
+          result.push({ material, amount: value })
+        }
+        continue
+      }
+
+      for (let tier = 0; tier < value.length; tier++) {
+        const amount = value[tier]
+        if (amount !== 0) {
+          result.push({
+            material,
+            amount,
+            tier,
+          })
+        }
+      }
+    }
+
+    return result
+  }
+
   private process(
     targetTier: number,
     filter?: (material: Material) => boolean,
