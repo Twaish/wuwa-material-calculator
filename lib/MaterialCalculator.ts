@@ -2,7 +2,7 @@ import { Material, BoundMaterial, MAT_TYPE } from './Material'
 
 type TieredMaterialType = MAT_TYPE.ENEMY | MAT_TYPE.FORGERY
 
-type MaterialAmount = {
+export type MaterialAmount = {
   amount: number
   material: Material
   tier?: number
