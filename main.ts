@@ -387,22 +387,117 @@ const logCharacters = (chars: Iterable<Character>) => {
 
 // Playground
 
-// Add materials for characters not owned to calculator
+// Unowned characters
+// Add materials
 const unownedMaterialCalculator = new MaterialCalculator()
 unownedMaterialCalculator.addFromCharacters(characterRegistry.unowned)
 
-// Get amount of weekly materials needed for all unowned characters
+// Total amount of WEEKLY materials needed
 logMaterials(unownedMaterialCalculator.calculateByType(MAT_TYPE.WEEKLY))
 
-// Pretty print characters not owned
-logCharacters(characterRegistry.unowned)
-
-// Get unowned characters that has Netherworld's Stare as a material
-logCharacters(characterRegistry.unowned.filter(usesNetherworldsStare))
-
-// Total amounts for ENEMY and WEEKLY materials for unowned characters
+// Total amounts for ENEMY and WEEKLY materials needed
 logMaterials(
   unownedMaterialCalculator
-    .calculateMany([MAT_TYPE.ENEMY, MAT_TYPE.WEEKLY], 4)
+    .calculateMany([MAT_TYPE.BOSS], 4)
     .sort(sortMaterialsByType),
 )
+
+logCharacters(characterRegistry.unowned.findByMaterials([elegy_tacet_core]))
+
+const inventoryMaterialCalculator = new MaterialCalculator()
+inventoryMaterialCalculator.addMaterialMap(
+  // Forgery
+  [cadence, [907, 607, 75, 35]],
+  [waveworn_residue, [696, 719, 124, 73]],
+  [helix, [1043, 813, 39, 0]],
+  [phlogiston, [836, 655, 83, 11]],
+  [metallic_drip, [2729, 1949, 0, 0]],
+  [waveworn_shard, [439, 546, 106, 16]],
+  [carved_crystal, [414, 494, 94, 7]],
+  [string, [399, 486, 94, 9]],
+  [combustor, [483, 504, 93, 13]],
+  [polarizer, [478, 602, 114, 20]],
+
+  // Enemy
+  [mask, [285, 112, 50, 20]],
+  [ring, [648, 301, 58, 15]],
+  [howler_core, [686, 267, 51, 1]],
+  [whisperin_core, [1691, 225, 6, 1]],
+  [polygon_core, [1518, 1102, 252, 24]],
+  [tidal_residuum, [1493, 532, 134, 24]],
+  [exoswarm_core, [895, 649, 48, 22]],
+  [mech_core, [785, 532, 19, 19]],
+  [exoswarm_pendant, [818, 571, 10, 1]],
+
+  // Weekly
+  [monument_bell, 39],
+  [unending_destruction, 31],
+  [dreamless_feather, 22],
+  [sentinels_dagger, 29],
+  [netherworlds_stare, 27],
+  [when_irises_bloom, 29],
+  [curse_of_the_abyss, 22],
+  [gold_in_memory, 27],
+
+  // Boss
+  [topological_confinement, 1],
+  [group_abomination_tacet_core, 6],
+  [sound_keeping_tacet_core, 4],
+  [gold_dissolving_feather, 1],
+  [elegy_tacet_core, 21],
+  [roaring_rock_fist, 0],
+  [rage_tacet_core, 1],
+  [thundering_tacet_core, 1],
+  [hidden_thunder_tacet_core, 0],
+  [strife_tacet_core, 2],
+  [platinum_core, 0],
+  [cleansing_conch, 0],
+  [blazing_bone, 5],
+  [unfading_glory, 1],
+  [truth_in_lies, 4],
+  [blighted_crown_of_puppet_king, 2],
+  [abyssal_husk, 0],
+  [burning_judgement, 4],
+  [suncoveters_reach, 5],
+  [our_choice, 27],
+
+  // Overworld
+  [lantern_berry, 94],
+  [pecok_flower, 47],
+  [nova, 95],
+  [rimewisp, 81],
+  [loongs_pearl, 160],
+  [pavo_plum, 181],
+  [firecracker_jewelweed, 73],
+  [golden_fleece, 77],
+  [sword_acorus, 79],
+  [bloodleaf_viburnum, 53],
+  [afterlife, 32],
+  [silverglow_bloom, 30],
+  [seaside_cendrelis, 33],
+  [summer_flower, 43],
+  [luminous_calendula, 39],
+  [stone_rose, 51],
+  [wintry_bell, 8],
+  [moss_amber, 42],
+  [edelschnee, 31],
+  [arithmetic_shell, 27],
+  [gemini_spore, 33],
+  [belle_poppy, 153],
+  [iris, 8],
+  [coriolus, 8],
+  [terraspawn_fungus, 7],
+  [violet_coral, 38],
+  [bamboo_iris, 36],
+
+  // Credit
+  [shell_credit, 27595501],
+)
+
+logMaterials(inventoryMaterialCalculator.calculate(4))
+
+// Pretty print characters not owned
+// logCharacters(characterRegistry.unowned)
+
+// Get unowned characters that has Netherworld's Stare as a material
+// logCharacters(characterRegistry.unowned.filter(usesNetherworldsStare))
