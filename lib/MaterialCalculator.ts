@@ -9,10 +9,7 @@ export type MaterialAmount = {
 }
 
 export default class MaterialCalculator {
-  private totals = new Map<
-    Material,
-    number | [number, number, number, number]
-  >()
+  public totals = new Map<Material, number | [number, number, number, number]>()
 
   addMaterials(entries: BoundMaterial[]) {
     for (const { material, tiers } of entries) {
@@ -96,6 +93,14 @@ export default class MaterialCalculator {
 
   calculate(targetTier: number): MaterialAmount[] {
     return this.process(targetTier)
+  }
+
+  calculateMany(types: MAT_TYPE[], tier?: number): MaterialAmount[] {
+    return this.process(tier ?? 4, (m) => types.includes(m.type))
+  }
+
+  calculateWhere(predicate: (m: Material) => boolean, tier?: number) {
+    return this.process(tier ?? 4, predicate)
   }
 
   clear() {
