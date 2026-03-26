@@ -33,6 +33,40 @@ export default class MaterialCalculator {
       }
     }
   }
+
+  subtract(other: MaterialCalculator) {
+    for (const [material, value] of other.totals.entries()) {
+      const current = this.totals.get(material)
+
+      if (!current) {
+        if (Array.isArray(value)) {
+          this.totals.set(material, value.map((v) => -v) as TieredMaterialMap)
+        } else {
+          this.totals.set(material, -value)
+        }
+        continue
+      }
+
+      if (Array.isArray(value) && Array.isArray(current)) {
+        for (let i = 0; i < 4; i++) {
+          current[i] -= value[i]
+        }
+        continue
+      }
+
+      if (!Array.isArray(value) && !Array.isArray(current)) {
+        this.totals.set(material, current - value)
+        continue
+      }
+
+      throw new Error(
+        `Type mismatch while subtracting material: ${material.name}`,
+      )
+    }
+
+    return this
+  }
+
   addMaterialMap(...input: [Material, TierMap[MAT_TYPE]][]) {
     const entries: BoundMaterial[] = []
 
