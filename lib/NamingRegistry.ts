@@ -35,9 +35,13 @@ export default class NamingRegistry {
     this.materialSchemes.set(material, scheme)
   }
 
-  format(material: Material, tier: number): string {
+  format(material: Material, tier?: number): string {
     const scheme = this.materialSchemes.get(material)
     if (!scheme) return material.name
+
+    if (tier == null) {
+      throw new Error(`No tier provided for ${material.name} which has tiers`)
+    }
 
     return scheme.format(material.name, tier)
   }
