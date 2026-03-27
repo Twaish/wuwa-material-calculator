@@ -387,31 +387,17 @@ const logCharacters = (chars: Iterable<Character>) => {
 
 // Playground
 
-// Unowned characters
-// Add materials
-const unownedMaterialCalculator = new MaterialCalculator()
-unownedMaterialCalculator.addFromCharacters(characterRegistry.unowned)
+const requiredMaterials = new MaterialCalculator()
+requiredMaterials.addFromCharacters(characterRegistry.unowned)
 
-// Total amount of WEEKLY materials needed
-logMaterials(unownedMaterialCalculator.calculateByType(MAT_TYPE.WEEKLY))
-
-// Total amounts for ENEMY and WEEKLY materials needed
-logMaterials(
-  unownedMaterialCalculator
-    .calculateMany([MAT_TYPE.BOSS], 4)
-    .sort(sortMaterialsByType),
-)
-
-logCharacters(characterRegistry.unowned.findByMaterials([elegy_tacet_core]))
-
-const inventoryMaterialCalculator = new MaterialCalculator()
-inventoryMaterialCalculator.addMaterialMap(
+const ownedMaterials = new MaterialCalculator()
+ownedMaterials.addMaterialMap(
   // Forgery
   [cadence, [907, 607, 75, 35]],
   [waveworn_residue, [696, 719, 124, 73]],
   [helix, [1043, 813, 39, 0]],
   [phlogiston, [836, 655, 83, 11]],
-  [metallic_drip, [2729, 1949, 0, 0]],
+  [metallic_drip, [2763, 1989, 10, 1]],
   [waveworn_shard, [439, 546, 106, 16]],
   [carved_crystal, [414, 494, 94, 7]],
   [string, [399, 486, 94, 9]],
@@ -462,27 +448,27 @@ inventoryMaterialCalculator.addMaterialMap(
   [our_choice, 27],
 
   // Overworld
-  [lantern_berry, 94],
-  [pecok_flower, 47],
+  [lantern_berry, 128],
+  [pecok_flower, 75],
   [nova, 95],
   [rimewisp, 81],
   [loongs_pearl, 160],
   [pavo_plum, 181],
-  [firecracker_jewelweed, 73],
-  [golden_fleece, 77],
-  [sword_acorus, 79],
-  [bloodleaf_viburnum, 53],
-  [afterlife, 32],
-  [silverglow_bloom, 30],
-  [seaside_cendrelis, 33],
-  [summer_flower, 43],
-  [luminous_calendula, 39],
-  [stone_rose, 51],
-  [wintry_bell, 8],
-  [moss_amber, 42],
-  [edelschnee, 31],
-  [arithmetic_shell, 27],
-  [gemini_spore, 33],
+  [firecracker_jewelweed, 126],
+  [golden_fleece, 127],
+  [sword_acorus, 124],
+  [bloodleaf_viburnum, 68],
+  [afterlife, 67],
+  [silverglow_bloom, 95],
+  [seaside_cendrelis, 85],
+  [summer_flower, 73],
+  [luminous_calendula, 104],
+  [stone_rose, 66],
+  [wintry_bell, 52],
+  [moss_amber, 87],
+  [edelschnee, 81],
+  [arithmetic_shell, 79],
+  [gemini_spore, 83],
   [belle_poppy, 153],
   [iris, 8],
   [coriolus, 8],
@@ -494,7 +480,23 @@ inventoryMaterialCalculator.addMaterialMap(
   [shell_credit, 27595501],
 )
 
-logMaterials(inventoryMaterialCalculator.calculate(4))
+logMaterials(ownedMaterials.calculateByType(MAT_TYPE.FORGERY, 4))
+
+console.log('MISSING RESOURCES FOR REMAINING UNOWNED CHARACTERS')
+requiredMaterials.subtract(ownedMaterials)
+const RESET = '\x1b[0m'
+const RED = '\x1b[31m'
+const GREEN = '\x1b[32m'
+const logMaterialsFulfilled = (materials: MaterialAmount[]) =>
+  materials.forEach((ma) =>
+    console.log(
+      `${ma.amount > 0 ? RED : GREEN}${materialAmountToString(ma)}${RESET}`,
+    ),
+  )
+
+logMaterialsFulfilled(
+  requiredMaterials.toMaterialAmounts().sort(sortMaterialsByType),
+)
 
 // Pretty print characters not owned
 // logCharacters(characterRegistry.unowned)
