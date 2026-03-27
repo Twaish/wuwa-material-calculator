@@ -375,8 +375,7 @@ const sortMaterialsByType = (a: MaterialAmount, b: MaterialAmount) =>
 const materialAmountToString = (ma: MaterialAmount) =>
   `[${ma.material.type}] ${namingRegistry.format(ma.material, ma.tier)}: ${ma.amount}`
 
-const usesNetherworldsStare = (c: Character) =>
-  c.hasMaterial(netherworlds_stare)
+const uses = (material: Material) => (c: Character) => c.hasMaterial(material)
 
 const logMaterials = (materials: MaterialAmount[]) =>
   materials.forEach((ma) => console.log(materialAmountToString(ma)))
@@ -386,7 +385,6 @@ const logCharacters = (chars: Iterable<Character>) => {
 }
 
 // Playground
-
 const requiredMaterials = new MaterialCalculator()
 requiredMaterials.addFromCharacters(characterRegistry.unowned)
 
@@ -498,8 +496,7 @@ logMaterialsFulfilled(
   requiredMaterials.toMaterialAmounts().sort(sortMaterialsByType),
 )
 
-// Pretty print characters not owned
-// logCharacters(characterRegistry.unowned)
-
-// Get unowned characters that has Netherworld's Stare as a material
-// logCharacters(characterRegistry.unowned.filter(usesNetherworldsStare))
+characterRegistry.unowned
+  .filter(uses(netherworlds_stare))
+  .filter(uses(howler_core))
+  .forEach((c) => console.log(c.name))
