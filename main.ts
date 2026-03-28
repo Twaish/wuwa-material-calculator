@@ -492,9 +492,8 @@ const logMaterialsFulfilled = (materials: MaterialAmount[]) =>
     ),
   )
 
-logMaterialsFulfilled(
-  requiredMaterials.toMaterialAmounts().sort(sortMaterialsByType),
-)
+// TODO: Instead of .calculate(4) Add smart calculation to convert the remaining materials into their higher-tier equivalents
+logMaterialsFulfilled(requiredMaterials.calculate(4).sort(sortMaterialsByType))
 
 characterRegistry.unowned
   .filter(uses(netherworlds_stare))
