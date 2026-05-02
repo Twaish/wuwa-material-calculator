@@ -64,6 +64,7 @@ export const curse_of_the_abyss = new Material(
   MAT_TYPE.WEEKLY,
 )
 export const gold_in_memory = new Material('Gold in Memory', MAT_TYPE.WEEKLY)
+export const we_who_question = new Material('We Who Question', MAT_TYPE.WEEKLY)
 
 // Boss type materials
 export const sound_keeping_tacet_core = new Material(
@@ -169,6 +170,7 @@ export const terraspawn_fungus = new Material(
 )
 export const violet_coral = new Material('Violet Coral', MAT_TYPE.OVERWORLD)
 export const bamboo_iris = new Material('Bamboo Iris', MAT_TYPE.OVERWORLD)
+export const redbell = new Material('Redbell', MAT_TYPE.OVERWORLD)
 
 // Special type materials
 export const mysterious_code = new Material('Mysterious Code', MAT_TYPE.SPECIAL)
