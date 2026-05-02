@@ -1,0 +1,17 @@
+{
+  "name": "wuwa-material-counter",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "scripts": {
+    "dev": "ts-node main.ts",
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.5"
+  }
+}
