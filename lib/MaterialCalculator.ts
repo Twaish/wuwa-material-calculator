@@ -166,6 +166,41 @@ export default class MaterialCalculator {
     return this.process(targetTier)
   }
 
+  smartCalculate(): MaterialAmount[] {
+    const result: MaterialAmount[] = []
+
+    for (const [material, value] of this.totals.entries()) {
+      if (!Array.isArray(value)) {
+        if (value !== 0) {
+          result.push({ material, amount: value })
+        }
+        continue
+      }
+
+      const tiers = [...value] as TieredMaterialMap
+
+      // Surplus is represented as negative (we own more than required)
+      // Convert surplus (negative) at lower tiers upward to cover deficits (positive).
+      for (let i = 0; i < tiers.length - 1; i++) {
+        if (tiers[i] >= 0) continue
+
+        const surplus = Math.floor(-tiers[i] / 3)
+        if (surplus === 0) continue
+
+        tiers[i] += surplus * 3
+        tiers[i + 1] -= surplus
+      }
+
+      for (let tier = 0; tier < tiers.length; tier++) {
+        if (tiers[tier] !== 0) {
+          result.push({ material, amount: tiers[tier], tier })
+        }
+      }
+    }
+
+    return result
+  }
+
   calculateMany(types: MAT_TYPE[], tier?: number): MaterialAmount[] {
     return this.process(tier ?? 4, (m) => types.includes(m.type))
   }
