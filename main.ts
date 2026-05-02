@@ -40,6 +40,7 @@ const {
   when_irises_bloom,
   curse_of_the_abyss,
   gold_in_memory,
+  we_who_question,
 
   // Boss type materials
   sound_keeping_tacet_core,
@@ -91,6 +92,7 @@ const {
   terraspawn_fungus,
   violet_coral,
   bamboo_iris,
+  redbell,
 
   // Special type materials
   mysterious_code,
@@ -134,6 +136,10 @@ const BaseCharacter = (name: string) => {
   }
 }
 
+const hiyuki = BaseCharacter('Hiyuki').build({
+  ascension: [exoswarm_core, our_choice, redbell],
+  forte: [exoswarm_core, polarizer, we_who_question],
+})
 const zhezhi = BaseCharacter('Zhezhi').build({
   ascension: [howler_core, sound_keeping_tacet_core, lantern_berry],
   forte: [howler_core, helix, monument_bell],
@@ -355,6 +361,9 @@ const ownedCharacters = [
   lumi,
   cartethyia,
   buling,
+  jianxin,
+  lynae,
+  hiyuki,
 ]
 ownedCharacters.forEach((c) => c.addTag('owned'))
 
@@ -391,32 +400,32 @@ requiredMaterials.addFromCharacters(characterRegistry.unowned)
 const ownedMaterials = new MaterialCalculator()
 ownedMaterials.addMaterialMap(
   // Forgery
-  [cadence, [907, 607, 75, 35]],
-  [waveworn_residue, [696, 719, 124, 73]],
-  [helix, [1043, 813, 39, 0]],
+  [cadence, [882, 351, 0, 0]],
+  [waveworn_residue, [752, 791, 138, 75]],
+  [helix, [1179, 981, 70, 5]],
   [phlogiston, [836, 655, 83, 11]],
-  [metallic_drip, [2763, 1989, 10, 1]],
-  [waveworn_shard, [439, 546, 106, 16]],
-  [carved_crystal, [414, 494, 94, 7]],
-  [string, [399, 486, 94, 9]],
-  [combustor, [483, 504, 93, 13]],
+  [metallic_drip, [2890, 2149, 42, 3]],
+  [waveworn_shard, [601, 746, 149, 26]],
+  [carved_crystal, [414, 494, 94, 13]],
+  [string, [399, 486, 94, 15]],
+  [combustor, [483, 504, 93, 19]],
   [polarizer, [478, 602, 114, 20]],
 
   // Enemy
-  [mask, [285, 112, 50, 20]],
-  [ring, [648, 301, 58, 15]],
-  [howler_core, [686, 267, 51, 1]],
-  [whisperin_core, [1691, 225, 6, 1]],
-  [polygon_core, [1518, 1102, 252, 24]],
-  [tidal_residuum, [1493, 532, 134, 24]],
-  [exoswarm_core, [895, 649, 48, 22]],
-  [mech_core, [785, 532, 19, 19]],
-  [exoswarm_pendant, [818, 571, 10, 1]],
+  [mask, [342, 139, 66, 22]],
+  [ring, [727, 364, 58, 15]],
+  [howler_core, [1021, 460, 82, 9]],
+  [whisperin_core, [440, 50, 2, 0]],
+  [polygon_core, [1561, 1133, 253, 24]],
+  [tidal_residuum, [1544, 564, 135, 24]],
+  [exoswarm_core, [1049, 752, 78, 30]],
+  [mech_core, [841, 575, 22, 19]],
+  [exoswarm_pendant, [1049, 698, 41, 3]],
 
   // Weekly
-  [monument_bell, 39],
-  [unending_destruction, 31],
-  [dreamless_feather, 22],
+  [monument_bell, 54],
+  [unending_destruction, 5],
+  [dreamless_feather, 26],
   [sentinels_dagger, 29],
   [netherworlds_stare, 27],
   [when_irises_bloom, 29],
@@ -424,26 +433,26 @@ ownedMaterials.addMaterialMap(
   [gold_in_memory, 27],
 
   // Boss
-  [topological_confinement, 1],
+  [topological_confinement, 46],
   [group_abomination_tacet_core, 6],
-  [sound_keeping_tacet_core, 4],
+  [sound_keeping_tacet_core, 48],
   [gold_dissolving_feather, 1],
-  [elegy_tacet_core, 21],
-  [roaring_rock_fist, 0],
-  [rage_tacet_core, 1],
+  [elegy_tacet_core, 47],
+  [roaring_rock_fist, 46],
+  [rage_tacet_core, 46],
   [thundering_tacet_core, 1],
   [hidden_thunder_tacet_core, 0],
   [strife_tacet_core, 2],
-  [platinum_core, 0],
+  [platinum_core, 10],
   [cleansing_conch, 0],
   [blazing_bone, 5],
   [unfading_glory, 1],
   [truth_in_lies, 4],
   [blighted_crown_of_puppet_king, 2],
   [abyssal_husk, 0],
-  [burning_judgement, 4],
-  [suncoveters_reach, 5],
-  [our_choice, 27],
+  [burning_judgement, 27],
+  [suncoveters_reach, 2],
+  [our_choice, 50],
 
   // Overworld
   [lantern_berry, 128],
@@ -462,7 +471,7 @@ ownedMaterials.addMaterialMap(
   [summer_flower, 73],
   [luminous_calendula, 104],
   [stone_rose, 66],
-  [wintry_bell, 52],
+  [wintry_bell, 60],
   [moss_amber, 87],
   [edelschnee, 81],
   [arithmetic_shell, 79],
@@ -473,12 +482,11 @@ ownedMaterials.addMaterialMap(
   [terraspawn_fungus, 7],
   [violet_coral, 38],
   [bamboo_iris, 36],
+  [redbell, 15],
 
   // Credit
-  [shell_credit, 27595501],
+  [shell_credit, 24595501],
 )
-
-logMaterials(ownedMaterials.calculateByType(MAT_TYPE.FORGERY, 4))
 
 console.log('MISSING RESOURCES FOR REMAINING UNOWNED CHARACTERS')
 requiredMaterials.subtract(ownedMaterials)
@@ -492,10 +500,11 @@ const logMaterialsFulfilled = (materials: MaterialAmount[]) =>
     ),
   )
 
-// TODO: Instead of .calculate(4) Add smart calculation to convert the remaining materials into their higher-tier equivalents
-logMaterialsFulfilled(requiredMaterials.calculate(4).sort(sortMaterialsByType))
+logMaterialsFulfilled(
+  requiredMaterials
+    .smartCalculate()
+    .sort(sortMaterialsByType)
+    .filter((m) => m.amount > 0),
+)
 
-characterRegistry.unowned
-  .filter(uses(netherworlds_stare))
-  .filter(uses(howler_core))
-  .forEach((c) => console.log(c.name))
+// logCharacters(characterRegistry.unowned.filter(uses(our_choice)))
