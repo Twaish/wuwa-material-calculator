@@ -171,6 +171,7 @@ export const terraspawn_fungus = new Material(
 export const violet_coral = new Material('Violet Coral', MAT_TYPE.OVERWORLD)
 export const bamboo_iris = new Material('Bamboo Iris', MAT_TYPE.OVERWORLD)
 export const redbell = new Material('Redbell', MAT_TYPE.OVERWORLD)
+export const dream_of_stars = new Material('Dream of Stars', MAT_TYPE.OVERWORLD)
 
 // Special type materials
 export const mysterious_code = new Material('Mysterious Code', MAT_TYPE.SPECIAL)
