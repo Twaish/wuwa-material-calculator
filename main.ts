@@ -93,6 +93,7 @@ const {
   violet_coral,
   bamboo_iris,
   redbell,
+  dream_of_stars,
 
   // Special type materials
   mysterious_code,
@@ -136,6 +137,10 @@ const BaseCharacter = (name: string) => {
   }
 }
 
+const denia = BaseCharacter('Denia').build({
+  ascension: [mech_core, burning_judgement, dream_of_stars, shell_credit],
+  forte: [mech_core, string, we_who_question, shell_credit],
+})
 const hiyuki = BaseCharacter('Hiyuki').build({
   ascension: [exoswarm_core, our_choice, redbell],
   forte: [exoswarm_core, polarizer, we_who_question],
@@ -400,27 +405,27 @@ requiredMaterials.addFromCharacters(characterRegistry.unowned)
 const ownedMaterials = new MaterialCalculator()
 ownedMaterials.addMaterialMap(
   // Forgery
-  [cadence, [882, 351, 0, 0]],
+  [cadence, [882, 351, 0, 197]],
   [waveworn_residue, [752, 791, 138, 75]],
   [helix, [1179, 981, 70, 5]],
-  [phlogiston, [836, 655, 83, 11]],
+  [phlogiston, [1017, 879, 131, 18]],
   [metallic_drip, [2890, 2149, 42, 3]],
-  [waveworn_shard, [601, 746, 149, 26]],
-  [carved_crystal, [414, 494, 94, 13]],
-  [string, [399, 486, 94, 15]],
-  [combustor, [483, 504, 93, 19]],
-  [polarizer, [478, 602, 114, 20]],
+  [waveworn_shard, [601, 746, 169, 26]],
+  [carved_crystal, [414, 494, 114, 13]],
+  [string, [399, 496, 114, 15]],
+  [combustor, [458, 158, 20, 0]],
+  [polarizer, [486, 634, 59, 0]],
 
   // Enemy
   [mask, [342, 139, 66, 22]],
-  [ring, [727, 364, 58, 15]],
-  [howler_core, [1021, 460, 82, 9]],
-  [whisperin_core, [440, 50, 2, 0]],
-  [polygon_core, [1561, 1133, 253, 24]],
-  [tidal_residuum, [1544, 564, 135, 24]],
-  [exoswarm_core, [1049, 752, 78, 30]],
-  [mech_core, [841, 575, 22, 19]],
-  [exoswarm_pendant, [1049, 698, 41, 3]],
+  [ring, [730, 367, 58, 15]],
+  [howler_core, [1026, 462, 83, 58]],
+  [whisperin_core, [514, 99, 116, 0]],
+  [polygon_core, [1616, 1178, 253, 124]],
+  [tidal_residuum, [1611, 606, 140, 155]],
+  [exoswarm_core, [1073, 435, 0, 0]],
+  [mech_core, [949, 657, 27, 7]],
+  [exoswarm_pendant, [1085, 718, 44, 34]],
 
   // Weekly
   [monument_bell, 54],
@@ -450,9 +455,9 @@ ownedMaterials.addMaterialMap(
   [truth_in_lies, 4],
   [blighted_crown_of_puppet_king, 2],
   [abyssal_husk, 0],
-  [burning_judgement, 27],
+  [burning_judgement, 49],
   [suncoveters_reach, 2],
-  [our_choice, 50],
+  [our_choice, 85],
 
   // Overworld
   [lantern_berry, 128],
@@ -483,9 +488,10 @@ ownedMaterials.addMaterialMap(
   [violet_coral, 38],
   [bamboo_iris, 36],
   [redbell, 15],
+  [dream_of_stars, 71],
 
   // Credit
-  [shell_credit, 24595501],
+  [shell_credit, 32582292],
 )
 
 console.log('MISSING RESOURCES FOR REMAINING UNOWNED CHARACTERS')
@@ -507,4 +513,8 @@ logMaterialsFulfilled(
     .filter((m) => m.amount > 0),
 )
 
-// logCharacters(characterRegistry.unowned.filter(uses(our_choice)))
+characterRegistry.unowned
+  .filter(uses(waveworn_residue))
+  .forEach((c) => console.log(c.name))
+
+// logCharacters(characterRegistry.unowned.filter(uses(phlogiston)))
