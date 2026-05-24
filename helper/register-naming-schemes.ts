@@ -39,7 +39,7 @@ export function registerNamingSchemes(namingRegistry: NamingRegistry) {
 
   namingRegistry.register(
     waveworn_residue,
-    new SuffixScheme([239, 235, 226, 210]),
+    new SuffixScheme([210, 226, 235, 239]),
   )
   namingRegistry.register(
     cadence,
