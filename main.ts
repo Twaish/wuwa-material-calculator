@@ -6,6 +6,7 @@ import MaterialCalculator, { MaterialAmount } from './lib/MaterialCalculator'
 import { registerNamingSchemes } from './helper/register-naming-schemes'
 import { prettyPrintWithRegistry } from './helper/pretty-print-with-registry'
 import * as materials from './resources/materials'
+import { loadMaterials } from './helper/load-materials'
 
 const {
   // Enemy type materials
@@ -402,99 +403,10 @@ const logCharacters = (chars: Iterable<Character>) => {
 const requiredMaterials = new MaterialCalculator()
 requiredMaterials.addFromCharacters(characterRegistry.unowned)
 
-const ownedMaterials = new MaterialCalculator()
-ownedMaterials.addMaterialMap(
-  // Forgery
-  [cadence, [882, 351, 0, 197]],
-  [waveworn_residue, [752, 791, 138, 75]],
-  [helix, [1179, 981, 70, 5]],
-  [phlogiston, [1017, 879, 131, 18]],
-  [metallic_drip, [2890, 2149, 42, 3]],
-  [waveworn_shard, [601, 746, 169, 26]],
-  [carved_crystal, [414, 494, 114, 13]],
-  [string, [399, 496, 114, 15]],
-  [combustor, [458, 158, 20, 0]],
-  [polarizer, [486, 634, 59, 0]],
-
-  // Enemy
-  [mask, [342, 139, 66, 22]],
-  [ring, [730, 367, 58, 15]],
-  [howler_core, [1026, 462, 83, 58]],
-  [whisperin_core, [514, 99, 116, 0]],
-  [polygon_core, [1616, 1178, 253, 124]],
-  [tidal_residuum, [1611, 606, 140, 155]],
-  [exoswarm_core, [1073, 435, 0, 0]],
-  [mech_core, [949, 657, 27, 7]],
-  [exoswarm_pendant, [1085, 718, 44, 34]],
-
-  // Weekly
-  [monument_bell, 54],
-  [unending_destruction, 5],
-  [dreamless_feather, 26],
-  [sentinels_dagger, 29],
-  [netherworlds_stare, 27],
-  [when_irises_bloom, 29],
-  [curse_of_the_abyss, 22],
-  [gold_in_memory, 27],
-
-  // Boss
-  [topological_confinement, 46],
-  [group_abomination_tacet_core, 6],
-  [sound_keeping_tacet_core, 48],
-  [gold_dissolving_feather, 1],
-  [elegy_tacet_core, 47],
-  [roaring_rock_fist, 46],
-  [rage_tacet_core, 46],
-  [thundering_tacet_core, 1],
-  [hidden_thunder_tacet_core, 0],
-  [strife_tacet_core, 2],
-  [platinum_core, 10],
-  [cleansing_conch, 0],
-  [blazing_bone, 5],
-  [unfading_glory, 1],
-  [truth_in_lies, 4],
-  [blighted_crown_of_puppet_king, 2],
-  [abyssal_husk, 0],
-  [burning_judgement, 49],
-  [suncoveters_reach, 2],
-  [our_choice, 85],
-
-  // Overworld
-  [lantern_berry, 128],
-  [pecok_flower, 75],
-  [nova, 95],
-  [rimewisp, 81],
-  [loongs_pearl, 160],
-  [pavo_plum, 181],
-  [firecracker_jewelweed, 126],
-  [golden_fleece, 127],
-  [sword_acorus, 124],
-  [bloodleaf_viburnum, 68],
-  [afterlife, 67],
-  [silverglow_bloom, 95],
-  [seaside_cendrelis, 85],
-  [summer_flower, 73],
-  [luminous_calendula, 104],
-  [stone_rose, 66],
-  [wintry_bell, 60],
-  [moss_amber, 87],
-  [edelschnee, 81],
-  [arithmetic_shell, 79],
-  [gemini_spore, 83],
-  [belle_poppy, 153],
-  [iris, 8],
-  [coriolus, 8],
-  [terraspawn_fungus, 7],
-  [violet_coral, 38],
-  [bamboo_iris, 36],
-  [redbell, 15],
-  [dream_of_stars, 71],
-
-  // Credit
-  [shell_credit, 32582292],
-)
-
 console.log('MISSING RESOURCES FOR REMAINING UNOWNED CHARACTERS')
+
+const ownedMaterials = loadMaterials('./inventory.json')
+
 requiredMaterials.subtract(ownedMaterials)
 const RESET = '\x1b[0m'
 const RED = '\x1b[31m'
