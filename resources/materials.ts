@@ -120,6 +120,10 @@ export const thundering_tacet_core = new Material(
   'Thundering Tacet Core',
   MAT_TYPE.BOSS,
 )
+export const nightmare_flashdrive = new Material(
+  'Nightmare Flashdrive',
+  MAT_TYPE.BOSS,
+)
 
 // Overworld type materials
 export const lantern_berry = new Material('Lantern Berry', MAT_TYPE.OVERWORLD)
@@ -172,6 +176,7 @@ export const violet_coral = new Material('Violet Coral', MAT_TYPE.OVERWORLD)
 export const bamboo_iris = new Material('Bamboo Iris', MAT_TYPE.OVERWORLD)
 export const redbell = new Material('Redbell', MAT_TYPE.OVERWORLD)
 export const dream_of_stars = new Material('Dream of Stars', MAT_TYPE.OVERWORLD)
+export const past_reveries = new Material('Past Reveries', MAT_TYPE.OVERWORLD)
 
 // Special type materials
 export const mysterious_code = new Material('Mysterious Code', MAT_TYPE.SPECIAL)

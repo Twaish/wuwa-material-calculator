@@ -59,6 +59,7 @@ const {
   hidden_thunder_tacet_core,
   strife_tacet_core,
   thundering_tacet_core,
+  nightmare_flashdrive,
 
   // Overworld type materials
   lantern_berry,
@@ -90,6 +91,7 @@ const {
   bamboo_iris,
   redbell,
   dream_of_stars,
+  past_reveries,
 
   // Special type materials
   mysterious_code,
@@ -333,4 +335,12 @@ export const cartethyia = BaseCharacter('Cartethyia').build({
 export const buling = BaseCharacter('Buling').build({
   ascension: [whisperin_core, blighted_crown_of_puppet_king, pecok_flower],
   forte: [whisperin_core, helix, curse_of_the_abyss],
+})
+export const rebecca = BaseCharacter('Rebecca').build({
+  ascension: [mech_core, nightmare_flashdrive, past_reveries],
+  forte: [mech_core, combustor, we_who_question],
+})
+export const lucy = BaseCharacter('Lucy').build({
+  ascension: [exoswarm_core, nightmare_flashdrive, past_reveries],
+  forte: [exoswarm_core, combustor, gold_in_memory],
 })
