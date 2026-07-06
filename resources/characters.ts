@@ -92,6 +92,7 @@ const {
   redbell,
   dream_of_stars,
   past_reveries,
+  forget_me_not,
 
   // Special type materials
   mysterious_code,
@@ -343,4 +344,8 @@ export const rebecca = BaseCharacter('Rebecca').build({
 export const lucy = BaseCharacter('Lucy').build({
   ascension: [exoswarm_core, nightmare_flashdrive, past_reveries],
   forte: [exoswarm_core, combustor, gold_in_memory],
+})
+export const lucilla = BaseCharacter('Lucilla').build({
+  ascension: [mech_core, suncoveters_reach, forget_me_not],
+  forte: [mech_core, string, we_who_question],
 })
