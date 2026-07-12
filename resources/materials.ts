@@ -21,6 +21,10 @@ export const polygon_core = new Material('Polygon Core', MAT_TYPE.ENEMY)
 export const exoswarm_pendant = new Material('Exoswarm Pendant', MAT_TYPE.ENEMY)
 export const mech_core = new Material('Mech Core', MAT_TYPE.ENEMY)
 export const mask = new Material('Mask', MAT_TYPE.ENEMY)
+export const autopuppet_kernel = new Material(
+  'Autopuppet Kernel',
+  MAT_TYPE.ENEMY,
+)
 
 // Forgery type materials
 export const helix = new Material('Helix', MAT_TYPE.FORGERY)
@@ -65,6 +69,10 @@ export const curse_of_the_abyss = new Material(
 )
 export const gold_in_memory = new Material('Gold in Memory', MAT_TYPE.WEEKLY)
 export const we_who_question = new Material('We Who Question', MAT_TYPE.WEEKLY)
+export const skyward_glazed_heart = new Material(
+  'Skyward Glazed Heart',
+  MAT_TYPE.WEEKLY,
+)
 
 // Boss type materials
 export const sound_keeping_tacet_core = new Material(
@@ -124,6 +132,10 @@ export const nightmare_flashdrive = new Material(
   'Nightmare Flashdrive',
   MAT_TYPE.BOSS,
 )
+export const solidaritys_loneflame = new Material(
+  "Solidarity's Loneflame",
+  MAT_TYPE.BOSS,
+)
 
 // Overworld type materials
 export const lantern_berry = new Material('Lantern Berry', MAT_TYPE.OVERWORLD)
@@ -178,6 +190,10 @@ export const redbell = new Material('Redbell', MAT_TYPE.OVERWORLD)
 export const dream_of_stars = new Material('Dream of Stars', MAT_TYPE.OVERWORLD)
 export const past_reveries = new Material('Past Reveries', MAT_TYPE.OVERWORLD)
 export const forget_me_not = new Material('Forget-Me-Not', MAT_TYPE.OVERWORLD)
+export const cloudperch_seed = new Material(
+  'Cloudperch Seed',
+  MAT_TYPE.OVERWORLD,
+)
 
 // Special type materials
 export const mysterious_code = new Material('Mysterious Code', MAT_TYPE.SPECIAL)
