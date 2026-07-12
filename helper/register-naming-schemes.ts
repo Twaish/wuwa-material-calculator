@@ -14,6 +14,7 @@ export function registerNamingSchemes(namingRegistry: NamingRegistry) {
     carved_crystal,
     exoswarm_core,
     mech_core,
+    autopuppet_kernel,
     waveworn_residue,
     cadence,
     helix,
@@ -36,6 +37,7 @@ export function registerNamingSchemes(namingRegistry: NamingRegistry) {
   namingRegistry.register(carved_crystal, T4)
   namingRegistry.register(exoswarm_core, T4)
   namingRegistry.register(mech_core, T4)
+  namingRegistry.register(autopuppet_kernel, T4)
 
   namingRegistry.register(
     waveworn_residue,
