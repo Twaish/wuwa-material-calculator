@@ -145,3 +145,7 @@ vite.config.ts.timestamp-*
 
 # Preferences
 .vscode/settings.json
+
+# User files
+characters.json
+inventory.json
