@@ -265,6 +265,10 @@ export const rover_aero = BaseCharacter('Rover (Aero)').build({
   ascension: [whisperin_core, mysterious_code, pecok_flower],
   forte: [whisperin_core, metallic_drip, when_irises_bloom],
 })
+export const rover_electro = BaseCharacter('Rover (Electro)').build({
+  ascension: [whisperin_core, mysterious_code, pecok_flower],
+  forte: [whisperin_core, polarizer, we_who_question],
+})
 export const taoqi = BaseCharacter('Taoqi').build({
   ascension: [howler_core, gold_dissolving_feather, iris],
   forte: [howler_core, waveworn_residue, dreamless_feather],
