@@ -14,6 +14,7 @@ const {
   exoswarm_pendant,
   mech_core,
   mask,
+  autopuppet_kernel,
 
   // Forgery type materials
   helix,
@@ -37,6 +38,7 @@ const {
   curse_of_the_abyss,
   gold_in_memory,
   we_who_question,
+  skyward_glazed_heart,
 
   // Boss type materials
   sound_keeping_tacet_core,
@@ -60,6 +62,7 @@ const {
   strife_tacet_core,
   thundering_tacet_core,
   nightmare_flashdrive,
+  solidaritys_loneflame,
 
   // Overworld type materials
   lantern_berry,
@@ -93,6 +96,7 @@ const {
   dream_of_stars,
   past_reveries,
   forget_me_not,
+  cloudperch_seed,
 
   // Special type materials
   mysterious_code,
@@ -348,4 +352,8 @@ export const lucy = BaseCharacter('Lucy').build({
 export const lucilla = BaseCharacter('Lucilla').build({
   ascension: [mech_core, suncoveters_reach, forget_me_not],
   forte: [mech_core, string, we_who_question],
+})
+export const yangyang_xuanling = BaseCharacter('Yangyang Xuanling').build({
+  ascension: [autopuppet_kernel, solidaritys_loneflame, cloudperch_seed],
+  forte: [autopuppet_kernel, polarizer, skyward_glazed_heart],
 })
