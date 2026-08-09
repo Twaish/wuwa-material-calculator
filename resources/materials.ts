@@ -194,6 +194,10 @@ export const cloudperch_seed = new Material(
   'Cloudperch Seed',
   MAT_TYPE.OVERWORLD,
 )
+export const flowborne_dream = new Material(
+  'Flowborne Dream',
+  MAT_TYPE.OVERWORLD,
+)
 
 // Special type materials
 export const mysterious_code = new Material('Mysterious Code', MAT_TYPE.SPECIAL)
