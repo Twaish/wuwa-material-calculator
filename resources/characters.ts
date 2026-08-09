@@ -97,6 +97,7 @@ const {
   past_reveries,
   forget_me_not,
   cloudperch_seed,
+  flowborne_dream,
 
   // Special type materials
   mysterious_code,
@@ -360,4 +361,8 @@ export const lucilla = BaseCharacter('Lucilla').build({
 export const yangyang_xuanling = BaseCharacter('Yangyang Xuanling').build({
   ascension: [autopuppet_kernel, solidaritys_loneflame, cloudperch_seed],
   forte: [autopuppet_kernel, polarizer, skyward_glazed_heart],
+})
+export const suisui = BaseCharacter('Suisui').build({
+  ascension: [autopuppet_kernel, solidaritys_loneflame, flowborne_dream],
+  forte: [autopuppet_kernel, string, skyward_glazed_heart],
 })
