@@ -63,6 +63,7 @@ const {
   thundering_tacet_core,
   nightmare_flashdrive,
   solidaritys_loneflame,
+  forged_empyreans_sigh,
 
   // Overworld type materials
   lantern_berry,
@@ -98,6 +99,7 @@ const {
   forget_me_not,
   cloudperch_seed,
   flowborne_dream,
+  blade_blossom,
 
   // Special type materials
   mysterious_code,
@@ -365,4 +367,12 @@ export const yangyang_xuanling = BaseCharacter('Yangyang Xuanling').build({
 export const suisui = BaseCharacter('Suisui').build({
   ascension: [autopuppet_kernel, solidaritys_loneflame, flowborne_dream],
   forte: [autopuppet_kernel, string, skyward_glazed_heart],
+})
+export const qingxiao = BaseCharacter('Qingxiao').build({
+  ascension: [autopuppet_kernel, forged_empyreans_sigh, blade_blossom],
+  forte: [autopuppet_kernel, polarizer, we_who_question],
+})
+export const jingran = BaseCharacter('Jingran').build({
+  ascension: [whisperin_core, forged_empyreans_sigh, cloudperch_seed],
+  forte: [whisperin_core, carved_crystal, skyward_glazed_heart],
 })
