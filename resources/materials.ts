@@ -136,6 +136,10 @@ export const solidaritys_loneflame = new Material(
   "Solidarity's Loneflame",
   MAT_TYPE.BOSS,
 )
+export const forged_empyreans_sigh = new Material(
+  "Forged Empyrean's Sigh",
+  MAT_TYPE.BOSS,
+)
 
 // Overworld type materials
 export const lantern_berry = new Material('Lantern Berry', MAT_TYPE.OVERWORLD)
@@ -198,6 +202,7 @@ export const flowborne_dream = new Material(
   'Flowborne Dream',
   MAT_TYPE.OVERWORLD,
 )
+export const blade_blossom = new Material('Blade Blossom', MAT_TYPE.OVERWORLD)
 
 // Special type materials
 export const mysterious_code = new Material('Mysterious Code', MAT_TYPE.SPECIAL)
