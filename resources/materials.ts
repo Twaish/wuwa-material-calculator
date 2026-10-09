@@ -73,6 +73,10 @@ export const skyward_glazed_heart = new Material(
   'Skyward Glazed Heart',
   MAT_TYPE.WEEKLY,
 )
+export const remnant_of_the_wheel = new Material(
+  'Remnant of the Wheel',
+  MAT_TYPE.WEEKLY,
+)
 
 // Boss type materials
 export const sound_keeping_tacet_core = new Material(
@@ -203,6 +207,10 @@ export const flowborne_dream = new Material(
   MAT_TYPE.OVERWORLD,
 )
 export const blade_blossom = new Material('Blade Blossom', MAT_TYPE.OVERWORLD)
+export const bloom_of_hearkening = new Material(
+  'Bloom of Hearkening',
+  MAT_TYPE.OVERWORLD,
+)
 
 // Special type materials
 export const mysterious_code = new Material('Mysterious Code', MAT_TYPE.SPECIAL)
