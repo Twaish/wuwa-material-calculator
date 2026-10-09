@@ -39,6 +39,7 @@ const {
   gold_in_memory,
   we_who_question,
   skyward_glazed_heart,
+  remnant_of_the_wheel,
 
   // Boss type materials
   sound_keeping_tacet_core,
@@ -100,6 +101,7 @@ const {
   cloudperch_seed,
   flowborne_dream,
   blade_blossom,
+  bloom_of_hearkening,
 
   // Special type materials
   mysterious_code,
@@ -375,4 +377,8 @@ export const qingxiao = BaseCharacter('Qingxiao').build({
 export const jingran = BaseCharacter('Jingran').build({
   ascension: [whisperin_core, forged_empyreans_sigh, cloudperch_seed],
   forte: [whisperin_core, carved_crystal, skyward_glazed_heart],
+})
+export const hsin = BaseCharacter('Hsin').build({
+  ascension: [autopuppet_kernel, solidaritys_loneflame, bloom_of_hearkening],
+  forte: [autopuppet_kernel, string, remnant_of_the_wheel],
 })
