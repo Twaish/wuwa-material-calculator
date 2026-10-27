@@ -211,6 +211,7 @@ export const bloom_of_hearkening = new Material(
   'Bloom of Hearkening',
   MAT_TYPE.OVERWORLD,
 )
+export const miasmic_branch = new Material("Miasmic Branch", MAT_TYPE.OVERWORLD)
 
 // Special type materials
 export const mysterious_code = new Material('Mysterious Code', MAT_TYPE.SPECIAL)
