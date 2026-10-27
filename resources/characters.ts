@@ -102,6 +102,7 @@ const {
   flowborne_dream,
   blade_blossom,
   bloom_of_hearkening,
+  miasmic_branch,
 
   // Special type materials
   mysterious_code,
@@ -381,4 +382,8 @@ export const jingran = BaseCharacter('Jingran').build({
 export const hsin = BaseCharacter('Hsin').build({
   ascension: [autopuppet_kernel, solidaritys_loneflame, bloom_of_hearkening],
   forte: [autopuppet_kernel, string, remnant_of_the_wheel],
+})
+export const suoming = BaseCharacter("Suoming").build({
+  ascension: [howler_core, forged_empyreans_sigh, miasmic_branch],
+  forte: [howler_core, polarizer, remnant_of_the_wheel]
 })
